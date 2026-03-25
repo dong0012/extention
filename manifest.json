@@ -1,11 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "ZenTab: Minimalist Hub",
+  "name": "ZenScroll: 网页滚动助手",
   "version": "1.0.0",
   "description": "A premium, minimalist chrome extension for tasks and focus.",
-  "action": {
-    "default_popup": "index.html"
-  },
   "background": {
     "service_worker": "src/background/index.ts",
     "type": "module"
