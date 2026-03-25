@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "ZenTab: Minimalist Hub",
+  "version": "1.0.0",
+  "description": "A premium, minimalist chrome extension for tasks and focus.",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "permissions": ["storage", "tabs"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.tsx"],
+      "css": ["src/content/style.css"]
+    }
+  ]
+}

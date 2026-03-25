@@ -1,0 +1,52 @@
+.zen-scroll-root {
+  position: fixed;
+  z-index: 999999;
+  width: 48px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  user-select: none;
+  cursor: grab;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zen-scroll-root:active {
+  cursor: grabbing;
+  transform: scale(1.05);
+}
+
+.scroll-btn {
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.scroll-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.scroll-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.drag-handle {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 4px 0;
+  opacity: 0.5;
+}
