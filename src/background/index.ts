@@ -1,5 +1,7 @@
+import browser from 'webextension-polyfill';
+
 console.log('ZenTab Service Worker Initialized');
 
-chrome.runtime.onInstalled.addListener(() => {
+browser.runtime.onInstalled.addListener(() => {
   console.log('ZenTab Extension Installed');
 });

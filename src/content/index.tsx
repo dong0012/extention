@@ -1,3 +1,4 @@
+console.log('ZenScroll: Content script LOADED at top level');
 import React, { useState, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import './style.css'
