@@ -1,6 +1,6 @@
 .zen-scroll-root {
   position: fixed;
-  z-index: 999999;
+  z-index: 2147483647;
   width: 48px;
   background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(12px);
@@ -13,7 +13,16 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   user-select: none;
   cursor: grab;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s ease-out;
+}
+
+.top-btn {
+  margin-bottom: 8px;
+  color: #38bdf8 !important; /* Cyan-400 for distinction */
+}
+
+.top-btn:hover {
+  background: rgba(56, 189, 248, 0.1) !important;
 }
 
 .zen-scroll-root:active {
