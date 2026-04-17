@@ -25,6 +25,15 @@
   background: rgba(56, 189, 248, 0.1) !important;
 }
 
+.bottom-btn {
+  margin-top: 8px;
+  color: #34d399 !important; /* Emerald-400 for distinction */
+}
+
+.bottom-btn:hover {
+  background: rgba(52, 211, 153, 0.1) !important;
+}
+
 .zen-scroll-root:active {
   cursor: grabbing;
   transform: scale(1.05);

@@ -7,6 +7,7 @@ const FloatingScroll = () => {
   const [position, setPosition] = useState({ x: window.innerWidth - 80, y: window.innerHeight / 2 })
   const [isDragging, setIsDragging] = useState(false)
   const [showTop, setShowTop] = useState(false)
+  const [showBottom, setShowBottom] = useState(false)
   const offset = useRef({ x: 0, y: 0 })
   const widgetRef = useRef<HTMLDivElement>(null)
   const scrollTimer = useRef<number | null>(null)
@@ -26,9 +27,14 @@ const FloatingScroll = () => {
       const scrollTop = window.scrollY
       const clientHeight = window.innerHeight
       
-      // Show "Back to Top" when near the bottom (within 300px)
-      const isNearBottom = scrollTop + clientHeight >= scrollHeight - 300
-      setShowTop(isNearBottom)
+      // Show "Back to Top" when scrolled down (leaving the top)
+      const canGoUp = scrollTop > 300
+      setShowTop(canGoUp)
+
+      // Show "Scroll to Bottom" when not yet at bottom (at least 300px or 1% left)
+      const scrollBottom = scrollTop + clientHeight
+      const canGoDown = scrollBottom < Math.max(scrollHeight - 300, scrollHeight * 0.99)
+      setShowBottom(canGoDown)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -38,17 +44,25 @@ const FloatingScroll = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Adjust position when "Back to Top" button appears/disappears to prevent layout shift
-  const lastShowTop = useRef(showTop)
+  // Adjust position when "Back to Top" button appears/disappears to keep other buttons fixed
+  const isMounted = useRef(false)
   useEffect(() => {
-    if (lastShowTop.current !== showTop) {
-      const shift = 40 // Height of button (32px) + margin (8px)
-      setPosition(prev => ({
-        ...prev,
-        y: showTop ? prev.y - shift : prev.y + shift
-      }))
-      lastShowTop.current = showTop
+    if (!isMounted.current) {
+      // On initial mount, if showTop is true, we should have already started with an offset
+      // or we adjust it now. Since position is initialized to mid-screen, 
+      // let's shift it once if it starts with showTop.
+      if (showTop) {
+        setPosition(prev => ({ ...prev, y: prev.y - 20 })) // Half-shift for focus
+      }
+      isMounted.current = true
+      return
     }
+
+    const shift = 40 // Height of button (32px) + margin (8px)
+    setPosition(prev => ({
+      ...prev,
+      y: showTop ? prev.y - shift : prev.y + shift
+    }))
   }, [showTop])
 
   const startScrolling = (direction: 'up' | 'down') => {
@@ -165,6 +179,21 @@ const FloatingScroll = () => {
           <path d="M6 9l6 6 6-6" />
         </svg>
       </button>
+      {showBottom && (
+        <button 
+          className="scroll-btn bottom-btn" 
+          onClick={(e) => { 
+            e.stopPropagation(); 
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' }); 
+          }}
+          title="Scroll to Bottom"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M12 5v14M12 19l7-7m-7 7l-7-7" />
+            <path d="M5 20h14" />
+          </svg>
+        </button>
+      )}
     </div>
   )
 }
