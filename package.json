@@ -8,6 +8,7 @@
     "build": "vite build",
     "build:chrome": "TARGET=chrome vite build",
     "build:firefox": "TARGET=firefox vite build",
+    "package": "cd dist && zip -r ../extension.zip .",
     "lint": "eslint .",
     "preview": "vite preview"
   },
